@@ -14,7 +14,8 @@ $names = array( "Mr Anthony R Von Fange III",
 
 foreach ($names as $name) {
     echo "<b>{$name}</b><br>";
-    $split_name = split_full_name($name);
+    $parser = new FullNameParser();
+    $split_name = $parser->split_full_name($name);
     print_r($split_name);
     foreach ($split_name as $key => $value) {
         echo "{$key}: {$value}<br>";

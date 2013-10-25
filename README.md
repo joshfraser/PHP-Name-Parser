@@ -24,7 +24,6 @@ We start by splitting the full name into separate words. We then do a dictionary
 
 **To-do**
 
-* Refactor as a PHP class
 * Separate splitting from formatting
 * Remove any words in parenthesis (not just 1 word)
 * Handle the "Lname, Fname" format
