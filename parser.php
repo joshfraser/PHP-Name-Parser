@@ -12,6 +12,8 @@ class FullNameParser
 
   public function split_full_name($full_name) {
       $full_name = trim($full_name);
+      // setup default values
+      extract( array( 'salutation' => '','fname' => '', 'initials' => '', 'lname' => '', 'suffix' => '' ));
       // split into words
       $unfiltered_name_parts = explode(" ",$full_name);
       // completely ignore any words in parentheses
