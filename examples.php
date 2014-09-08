@@ -7,19 +7,29 @@ $names = array( "Mr Anthony R Von Fange III",
                 "Adam",
                 "Jonathan Smith", 
                 "Mr John Doe", 
+                "Rev. Dr John Doe", 
                 "Anthony Von Fange III", 
+                "Anthony Von Fange III, PhD", 
                 "Smarty Pants Phd", 
-                "Mark P Williams"
-                );
+                "Not So Smarty Pants, Silly", 
+                "Mark Peter Williams",
+                "Mark P Williams",
+                "Mark P. Williams",
+                "M Peter Williams",
+                "M. Peter Williams",
+                "M. P. Williams",
+                "MP Williams",
+                "The Rev. Mark Williams",
+              );
+
+$parser = new FullNameParser();
 
 foreach ($names as $name) {
     echo "<b>{$name}</b><br>";
-    $parser = new FullNameParser();
     $split_name = $parser->split_full_name($name);
+    echo "<pre>";
     print_r($split_name);
-    foreach ($split_name as $key => $value) {
-        echo "{$key}: {$value}<br>";
-    }
+    echo "</pre>";
     echo "<hr>";
 }
 
