@@ -14,23 +14,42 @@ class FullNameParser
       $full_name = trim($full_name);
       // setup default values
       extract( array( 'salutation' => '','fname' => '', 'initials' => '', 'lname' => '', 'suffix' => '' ));
+      
+      if ( preg_match("/(.*), *(.*)/", $full_name, $matches)  ) {
+          $full_name = $matches[1];
+          $final_suffix = $matches[2];
+      } else {
+          $final_suffix = '';
+      }
+      
       // split into words
       $unfiltered_name_parts = explode(" ",$full_name);
-      // completely ignore any words in parentheses
+      // completely ignore any words in parentheses or quotes
       foreach ($unfiltered_name_parts as $word) {
-          if ($word{0} != "(")
+          if ($word{0} != "(" && $word{0} != '"')
               $name_parts[] = $word;
       }
-      $num_words = sizeof($name_parts);
-
-      // is the first word a title? (Mr. Mrs, etc)
-      $salutation = $this->is_salutation($name_parts[0]);
-      $suffix = $this->is_suffix($name_parts[sizeof($name_parts)-1]);
-
+    
+      // is the first word a title? (Mr. Mrs, etc), or more than one of the above?
+      $salutation = '';
+      while ( $s = $this->is_salutation($name_parts[0]) ) {
+          $salutation .= "$s ";
+          array_shift($name_parts);
+      }
+      trim($salutation);
+      
+      $suffix = '';
+      while ( $s = $this->is_suffix($name_parts[sizeof($name_parts)-1]) ) {
+          $suffix .= "$s ";
+          array_pop($name_parts);
+      }
+      $suffix .= $final_suffix;
+      trim($suffix);
+    
       // set the range for the middle part of the name (trim prefixes & suffixes)
-      $start = ($salutation) ? 1 : 0;
-      $end = ($suffix) ? $num_words-1 : $num_words;
-
+      $start = 0;
+      $end = sizeof($name_parts);
+    
       // concat the first name
       for ($i=$start; $i < $end-1; $i++) {
           $word = $name_parts[$i];
@@ -78,9 +97,11 @@ class FullNameParser
       $name['suffix'] = $suffix;
       return $name;
   }
-
+  
   // detect and format standard salutations
   // I'm only considering english honorifics for now & not words like
+  // $titles = array("al-","dr","rev","phd","mr","ms","jr","sr","rabbi","fr","father","the","rev'd","prof");
+  
   public function is_salutation($word) {
       // ignore periods
       $word = str_replace('.','',strtolower($word));
@@ -93,10 +114,16 @@ class FullNameParser
           return "Ms.";
       else if ($word == "dr")
           return "Dr.";
-      else if ($word == "rev")
+      else if ($word == "the")
+          return " ";
+      else if ($word == "rev" || $word == "rev'd" || $word == "reverend")
           return "Rev.";
-      else if ($word == "fr")
+      else if ($word == "fr" || $word == "father")
           return "Fr.";
+      else if ($word == "sr" || $word == "sister")
+          return "Sr.";
+      else if ($word == "prof" || $word == "professor")
+          return "Prof.";
       else
           return false;
   }
