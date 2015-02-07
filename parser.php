@@ -102,7 +102,7 @@ class FullNameParser {
     $suffix .= $professional_suffix;
     
     # set the ending range after prefix/suffix trim
-    $end = sizeof($name_parts);
+    $end = count($name_parts);
     
     # concat the first name
     for ($i=0; $i<$end-1; $i++) {
