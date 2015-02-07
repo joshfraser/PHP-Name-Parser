@@ -138,7 +138,7 @@ class FullNameParser {
     }
 
     # check that we have more than 1 word in our string
-    if ($end-$start > 1) {
+    if ($end-0 > 1) {
       # concat the last name
       for ($i; $i < $end; $i++) {
         $lname .= " ".$this->fix_case($name_parts[$i]);
