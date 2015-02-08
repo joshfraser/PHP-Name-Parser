@@ -23,6 +23,7 @@ $names = array(
   "Old Mac Donald",
   "James van Allen",
   "Jimmy John (Bubba) Wilkinson III",
+  "Jimmy John (Bubba Junior) Wilkinson",
   "Miss Jennifer Shrader Lawrence",
   "Jonathan Smith, MD",
   "Dr. Jonathan Smith",
@@ -42,16 +43,30 @@ $names = array(
   "M. P. Williams",
   "MP Williams",
   "The Rev. Mark Williams",
+  "Fraser, Joshua"
 );
+
 
 $parser = new FullNameParser();
 
+$headers = array("salutation","fname","initials","lname","suffix","nickname");
+
+echo "<table width='100%'>";
+echo "<thead style='font-weight:bold'><tr><td></td>";
+foreach ($headers as $col) {
+  echo "<td>".ucfirst($col)."</td>";
+}
+echo "</tr></thead><tbody>";
 
 foreach ($names as $name) {
-  echo "<b>{$name}</b><br>";
+  echo "<tr>";
+  echo "<td>{$name}</td>";
   $split_name = $parser->parse_name($name, true);
-  echo '<pre>';
-  print_r($split_name);
-  echo '</pre>';
-  echo '<hr>';
+  foreach ($headers as $col) {
+    echo "<td>".$split_name[$col]."</td>";
+  }
+  echo "</tr>";
 }
+echo "</tbody></table>";
+
+?>
