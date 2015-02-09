@@ -192,6 +192,11 @@ $names = array(
                                               "initials" => "", 
                                               "lname" => "Williams",
                                               "suffix" => ""),
+  "Mister Mark Williams"          =>  array("salutation" => "Mr.", 
+                                              "fname" => "Mark", 
+                                              "initials" => "", 
+                                              "lname" => "Williams",
+                                              "suffix" => ""),
   // fails. format not yet supported
   "Fraser, Joshua"                  =>  array("salutation" => "", 
                                               "fname" => "Joshua", 
