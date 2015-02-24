@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @file FullNameParserTest.php
- * @project PHP-Name-Parser
- * @author Josh Houghtelin <josh@findsomehelp.com>
- * @created 2/23/15 6:27 PM
- */
 class FullNameParserTest extends PHPUnit_Framework_TestCase
 {
 
