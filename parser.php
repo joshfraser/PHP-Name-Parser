@@ -34,11 +34,12 @@ class FullNameParser {
       'Sir' => array('sir'),
       ' ' => array('the')
     ),
-    'compound' => array('vere','von','van','de','del','della','di','da','pietro','vanden','du','st.','st','la','ter'),
+    'compound' => array('da','de','del','della','der','di','du','la','pietro','st.','st','ter','van','vanden','vere','von'),
     'suffixes' => array(
-      'line' => array('I','II','III','IV','V','Senior','Junior','Jr','Sr'),
+      'line' => array('I','II','III','IV','V','1st','2nd','3rd','4th','5th','Senior','Junior','Jr','Sr'),
       'prof' => array('PhD','APR','RPh','PE','MD','MA','DMD','CME')
-    )
+    ),
+    'vowels' => array('a','e','i','o','u')
   );
 
 
@@ -58,38 +59,48 @@ class FullNameParser {
     # Setup default vars
     extract(array('salutation' => '', 'fname' => '', 'initials' => '', 'lname' => '', 'suffix' => ''));
 
-    # Grab a list of words from name
-    $unfiltered_name_parts = $this->break_words($full_name);
-
-    # If list contains professional suffix, pop it off
-    $professional_suffix = (isset($unfiltered_name_parts['pro_suffix'])) ? array_pop($unfiltered_name_parts) : null;
-
-    # Deal with nickname, push to array
-    foreach ($unfiltered_name_parts as $word) {
-      if ($this->is_nickname($word)) {
-        if ($nick) {
-          # Remove whatever characters are wrapped around this string.
-          $word = substr($word, 1, (strlen($word) - 2));
-          # Associate the nickname
-          $name['nickname'] = $word;
+    # If name contains professional suffix, assign and remove it
+    $professional_suffix = $this->get_pro_suffix($full_name);
+    if ($professional_suffix) {
+      # Remove the suffix from full name
+      $full_name = str_replace($professional_suffix, '', $full_name);
+      # Remove the preceeding comma and space(s) from suffix
+      $professional_suffix = preg_replace("/, */", '', $professional_suffix);
+      # Normalize the case of suffix if found in dictionary
+      foreach ($this->dict['suffixes']['prof'] as $prosuffix) {
+        if (strtolower($prosuffix) === strtolower($professional_suffix)) {
+          $professional_suffix = $prosuffix;
         }
       }
-      else {
-        $name_parts[] = $word;
-      }
     }
+
+    # Deal with nickname, push to array
+    $has_nick = $this->get_nickname($full_name);
+    if ($has_nick) {
+      if ($nick) {
+        # Remove wrapper chars from around nickname
+        $name['nickname'] = substr($has_nick, 1, (strlen($has_nick) - 2));
+      }
+      # Remove the nickname from the full name
+      $full_name = str_replace($has_nick, '', $full_name);
+      # Get rid of consecutive spaces left by the removal
+      $full_name = str_replace('  ', ' ', $full_name);
+    }
+
+    # Grab a list of words from name
+    $unfiltered_name_parts = $this->break_words($full_name);
     
     # Is first word a title or multiple titles consecutively?
-    while ($s = $this->is_salutation($name_parts[0])) {
+    while ($s = $this->is_salutation($unfiltered_name_parts[0])) {
       $salutation .= "$s ";
-      array_shift($name_parts);
+      array_shift($unfiltered_name_parts);
     }
     $salutation = trim($salutation);
 
     # Is last word a suffix or multiple suffixes consecutively?
-    while ($s = $this->is_suffix($name_parts[count($name_parts)-1], $full_name)) {
+    while ($s = $this->is_suffix($unfiltered_name_parts[count($unfiltered_name_parts)-1], $full_name)) {
       $suffix .= "$s ";
-      array_pop($name_parts);
+      array_pop($unfiltered_name_parts);
     }
     $suffix = trim($suffix);
 
@@ -102,11 +113,11 @@ class FullNameParser {
     $suffix .= $professional_suffix;
     
     # set the ending range after prefix/suffix trim
-    $end = count($name_parts);
+    $end = count($unfiltered_name_parts);
     
     # concat the first name
     for ($i=0; $i<$end-1; $i++) {
-      $word = $name_parts[$i];
+      $word = $unfiltered_name_parts[$i];
       # move on to parsing the last name if we find an indicator of a compound last name (Von, Van, etc)
       # we use $i != 0 to allow for rare cases where an indicator is actually the first name (like "Von Fabella")
       if ($this->is_compound($word) && $i != 0) {
@@ -120,7 +131,7 @@ class FullNameParser {
           # if so, do a look-ahead to see if they go by their middle name
           # for ex: "R. Jason Smith" => "Jason Smith" & "R." is stored as an initial
           # but "R. J. Smith" => "R. Smith" and "J." is stored as an initial
-          if ($this->is_initial($name_parts[$i+1])) {
+          if ($this->is_initial($unfiltered_name_parts[$i+1])) {
             $fname .= " ".strtoupper($word);
           }
           else {
@@ -141,12 +152,12 @@ class FullNameParser {
     if ($end-0 > 1) {
       # concat the last name
       for ($i; $i < $end; $i++) {
-        $lname .= " ".$this->fix_case($name_parts[$i]);
+        $lname .= " ".$this->fix_case($unfiltered_name_parts[$i]);
       }
     }
     else {
       # otherwise, single word strings are assumed to be first names
-      $fname = $this->fix_case($name_parts[$i]);
+      $fname = $this->fix_case($unfiltered_name_parts[$i]);
     }
 
     # return the various parts in an array
@@ -161,55 +172,48 @@ class FullNameParser {
 
 
   /**
-   * Breaks name into individual words while also associating
-   * any professional suffixes. (ie. PhD, MD, etc)
+   * Breaks name into individual words
    *
    * @param string $name the full name you wish to parse
    * @return array full list of words broken down by spaces
    */
   public function break_words($name) {
-
-    # Check for the existence of professional suffixes
-    # Example: Thomas P. Jones III, PhD (PhD is pro suffix)
-    if (preg_match("/(.*), *(.*)/", $name, $matches)) {
-      $name  = $matches[1];
-      $pro_suffix = $matches[2];
-    }
-    else {
-      $pro_suffix = null;
-    }
-
-    # Now that we've removed the pro suffix (if applicable)
-    # we can blow up the string into an array of parts
-    $parts = explode(' ', $name);
-
-    # If we found an pro suffix, add it to the array
-    if (isset($pro_suffix)) {
-      $parts['pro_suffix'] = $pro_suffix;
-    }
-
-    return $parts;
+    return explode(' ', $name);
   }
 
+
+
   /**
-   * Limited function to check for nicknames based on a few checks
+   * Checks for the existence of, and returns professional suffix
+   *
+   * @param string $name the name you wish to test
+   * @return mixed returns the suffix if exists, false otherwise
+   */
+  protected function get_pro_suffix($name) {
+    if (preg_match("/, *[a-zA-Z]*\b/", $name, $matches)) {
+      return $matches[0];
+    }
+    return false;
+  }
+
+
+
+  /**
+   * Function to check name for existence of nickname based on these stipulations
    *  - String wrapped in parentheses (string)
    *  - String wrapped in double quotes "string"
-   *  - String wrapped in single quotes 'string'
+   *  x String wrapped in single quotes 'string'
    *
-   * @param string $word the word you wish to test
-   * @return boolean
+   *  I removed the check for strings in single quotes 'string' due to possible
+   *  conflicts with names that may include apostrophes. Arabic transliterations, for example
+   *
+   * @param string $name the name you wish to test against
+   * @return mixed returns nickname if exists, false otherwise
    */
-  protected function is_nickname($word) {
-
-    # Define last char index
-    $end = strlen($word) - 1;
-
-    # Ensures the word is wrapped with either parentheses, double quotes, or single quotes
-    if (($word{0} == '"' && $word{$end} == '"') || ($word{0} == "(" && $word{$end} == ")") || ($word{0} == "'" && $word{$end} == "'")) {
-      return true;
+  protected function get_nickname($name) {
+    if (preg_match("/[\(|\"].*?[\)|\"]/", $name, $matches)) {
+      return $matches[0];
     }
-
     return false;
   }
 
