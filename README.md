@@ -31,8 +31,6 @@ Check examples.php for the test suite and examples of how various name formats a
 
 * Handle the "Lname, Fname" format
 * Separate the parsing of the name from the normalization & capitalization & make those optional.
-* Handle any number of words in parenthesis (currently only handles a single word)
-* Normalize the formatting of suffixes (PHD -> PhD)
 * Add rule to capitalize two letter names w/ no vowels (ex. "JP" but not "Jo")
 * Add common name libraries to allow for things like gender detection
 
