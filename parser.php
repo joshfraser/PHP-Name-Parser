@@ -188,7 +188,7 @@ class FullNameParser {
    */
   protected function get_pro_suffix($name) {
     foreach ($this->dict['suffixes']['prof'] as $suffix) {
-      if (preg_match("/,[\s]*$suffix\b/", $name, $matches)) {
+      if (preg_match("/,[\s]*$suffix\b/i", $name, $matches)) {
         return $matches[0];
       }
     }
