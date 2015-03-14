@@ -8,7 +8,7 @@ PHP library to split names into their respective components.  Besides detecting 
     include("parser.php");
 
     $parser = new FullNameParser();
-    $parser->parse_name("Mr Anthony R Von Fange III", $nickname = true);
+    $parser->parse_name("Mr Anthony R Von Fange III");
 
 **Results:**
 
