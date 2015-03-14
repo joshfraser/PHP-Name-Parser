@@ -48,10 +48,9 @@ class FullNameParser {
    * This is the primary method which calls all other methods
    *
    * @param string $name the full name you wish to parse
-   * @param boolean $nick whether or not to return nicknames (false = discard)
    * @return array returns associative array of name parts
    */
-  public function parse_name($full_name, $nick=false) {
+  public function parse_name($full_name) {
 
     # Remove leading/trailing whitespace
     $full_name = trim($full_name);
@@ -77,10 +76,8 @@ class FullNameParser {
     # Deal with nickname, push to array
     $has_nick = $this->get_nickname($full_name);
     if ($has_nick) {
-      if ($nick) {
-        # Remove wrapper chars from around nickname
-        $name['nickname'] = substr($has_nick, 1, (strlen($has_nick) - 2));
-      }
+      # Remove wrapper chars from around nickname
+      $name['nickname'] = substr($has_nick, 1, (strlen($has_nick) - 2));
       # Remove the nickname from the full name
       $full_name = str_replace($has_nick, '', $full_name);
       # Get rid of consecutive spaces left by the removal
@@ -89,7 +86,7 @@ class FullNameParser {
 
     # Grab a list of words from name
     $unfiltered_name_parts = $this->break_words($full_name);
-    
+
     # Is first word a title or multiple titles consecutively?
     while ($s = $this->is_salutation($unfiltered_name_parts[0])) {
       $salutation .= "$s ";
@@ -111,10 +108,10 @@ class FullNameParser {
 
     # Concat professional suffix to suffix
     $suffix .= $professional_suffix;
-    
+
     # set the ending range after prefix/suffix trim
     $end = count($unfiltered_name_parts);
-    
+
     # concat the first name
     for ($i=0; $i<$end-1; $i++) {
       $word = $unfiltered_name_parts[$i];
@@ -126,7 +123,7 @@ class FullNameParser {
       # is it a middle initial or part of their first name?
       # if we start off with an initial, we'll call it the first name
       if ($this->is_initial($word)) {
-        # is the initial the first word?  
+        # is the initial the first word?
         if ($i == 0) {
           # if so, do a look-ahead to see if they go by their middle name
           # for ex: "R. Jason Smith" => "Jason Smith" & "R." is stored as an initial
@@ -145,7 +142,7 @@ class FullNameParser {
       }
       else {
         $fname .= " ".$this->fix_case($word);
-      }  
+      }
     }
 
     # check that we have more than 1 word in our string
@@ -190,8 +187,10 @@ class FullNameParser {
    * @return mixed returns the suffix if exists, false otherwise
    */
   protected function get_pro_suffix($name) {
-    if (preg_match("/, *[a-zA-Z]*\b/", $name, $matches)) {
-      return $matches[0];
+    foreach ($this->dict['suffixes']['prof'] as $suffix) {
+      if (preg_match("/,[\s]*$suffix\b/", $name, $matches)) {
+        return $matches[0];
+      }
     }
     return false;
   }
