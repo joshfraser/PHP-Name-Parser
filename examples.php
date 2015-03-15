@@ -235,31 +235,48 @@ $names = array(
 $parser = new FullNameParser();
 
 $headers = array("salutation","fname","initials","lname","suffix","nickname");
-
-echo "<table width='100%'>";
-echo "<thead style='font-weight:bold'><tr><td></td>";
-foreach ($headers as $col) {
-  echo "<td>".ucfirst($col)."</td>";
-}
-echo "<td>Passed?</td></tr></thead><tbody>";
-
-foreach ($names as $name => $expected_values) {
-  echo "<tr>";
-  echo "<td>{$name}</td>";
-  $split_name = $parser->parse_name($name, true);
-  foreach ($headers as $col) {
-    echo '<td>';
-    if (isset($split_name[$col])) {
-      echo $split_name[$col];
-    }
-    echo '</td>';
-  }
-  $passed = ($split_name === $expected_values);
-  // print_r($split_name);
-  // echo "<hr>";
-  echo ($passed) ? "<td style='background-color:green'>Yes</td>" : "<td style='background-color:red'>No</td>";
-  echo "</tr>";
-}
-echo "</tbody></table>";
-
 ?>
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PHP Name Parser | Unit Tests</title>
+    <link rel="stylesheet" href="./tests/style.css" type="text/css" media="all">
+  </head>
+  <body>
+    <div class="wrapper">
+      <table class="unit-tests">
+        <colgroup>
+          <col class="col1">
+          <col class="col2">
+          <col class="col3">
+          <col class="col4">
+          <col class="col5">
+          <col class="col6">
+          <col class="col7">
+          <col class="col8">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Full Name</th>
+<?php foreach ($headers as $col): ?>
+            <th><?= ucfirst($col); ?></th>
+<?php endforeach; ?>
+            <th>Passed</th>
+          </tr>
+        </thead>
+        <tbody>
+<?php foreach ($names as $name => $expected_values): $split_name = $parser->parse_name($name); $passed = ($split_name === $expected_values); ?>
+          <tr class="<?= ($passed) ? 'pass' : 'fail'; ?>">
+            <td><?= $name; ?></td>
+<?php foreach ($headers as $col): ?>
+            <td><?= (isset($split_name[$col])) ? $split_name[$col] : ''; ?></td>
+<?php endforeach; ?>
+            <td><?= ($passed) ? 'PASS' : 'FAIL'; ?></td>
+<?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
