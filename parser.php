@@ -349,7 +349,7 @@ class FullNameParser {
 
     # Fix case for words which are 2 chars or less and all lowercase
     if ((strlen($word) <= 2) && ctype_lower($word)) {
-      $word = ucfirst($word);
+      $word = strtoupper($word);
     }
 
     return $word;
