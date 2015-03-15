@@ -229,6 +229,16 @@ $names = array(
                                               "initials" => "",
                                               "lname" => "Pants",
                                               "suffix" => ""),
+  "Rev Al Sharpton"                 =>  array("salutation" => "Rev.",
+                                              "fname" => "Al",
+                                              "initials" => "",
+                                              "lname" => "Sharpton",
+                                              "suffix" => ""),
+  "Dr Ty P. Bennington iIi"                 =>  array("salutation" => "Dr.",
+                                              "fname" => "Ty",
+                                              "initials" => "P.",
+                                              "lname" => "Bennington",
+                                              "suffix" => "III"),
 );
 
 

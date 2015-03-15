@@ -17,3 +17,5 @@ tr{ page-break-inside: avoid; }
 .unit-tests tbody .fail td:last-child { background:#ffc1c1; border-color:rgba(0,0,0,0.03); border-right-color:rgba(0,0,0,0.1); color:#e53d3d; }
 .unit-tests tbody .pass:hover { background:#ecffc1; color:#7ec43c; }
 .unit-tests tbody .fail:hover { background:#ffc1c1; color:#e53d3d; }
+.unit-tests tbody .pass td:hover { background:#c5f458; color:#8ec100; }
+.unit-tests tbody .fail td:hover { background:#f25959; color:#c10000; }

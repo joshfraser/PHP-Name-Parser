@@ -342,14 +342,30 @@ class FullNameParser {
       $word = $this->safe_ucfirst("-", $word);
     }
 
+    # Special case for single letters
+    if (strlen($word) == 1) {
+      $word = strtoupper($word);
+    }
+
+    # Special case for 2-letter words
+    if (strlen($word) == 2) {
+      # First letter is vowel, second letter consanant (uppercase first)
+      if (in_array(strtolower($word{0}), $this->dict['vowels']) && !in_array(strtolower($word{1}), $this->dict['vowels'])) {
+        $word = ucfirst(strtolower($word));
+      }
+      # First letter consanant, second letter vowel or "y" (uppercase first)
+      if (!in_array(strtolower($word{0}), $this->dict['vowels']) && (in_array(strtolower($word{1}), $this->dict['vowels']) || strtolower($word{1}) == 'y')) {
+        $word = ucfirst(strtolower($word));
+      }
+      # Both letters vowels (uppercase both)
+      if (in_array(strtolower($word{0}), $this->dict['vowels']) && in_array(strtolower($word{1}), $this->dict['vowels'])) {
+        $word = strtoupper($word);
+      }
+    }
+
     # Fix case for words which aren't initials, but are all upercase or lowercase
     if ( (strlen($word) >= 3) && (ctype_upper($word) || ctype_lower($word)) ) {
       $word = ucfirst(strtolower($word));
-    }
-
-    # Fix case for words which are 2 chars or less and all lowercase
-    if ((strlen($word) <= 2) && ctype_lower($word)) {
-      $word = strtoupper($word);
     }
 
     return $word;
