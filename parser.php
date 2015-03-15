@@ -349,6 +349,14 @@ class FullNameParser {
 
     # Special case for 2-letter words
     if (strlen($word) == 2) {
+      # Both letters vowels (uppercase both)
+      if (in_array(strtolower($word{0}), $this->dict['vowels']) && in_array(strtolower($word{1}), $this->dict['vowels'])) {
+        $word = strtoupper($word);
+      }
+      # Both letters consonants (uppercase both)
+      if (!in_array(strtolower($word{0}), $this->dict['vowels']) && !in_array(strtolower($word{1}), $this->dict['vowels'])) {
+        $word = strtoupper($word);
+      }
       # First letter is vowel, second letter consonant (uppercase first)
       if (in_array(strtolower($word{0}), $this->dict['vowels']) && !in_array(strtolower($word{1}), $this->dict['vowels'])) {
         $word = ucfirst(strtolower($word));
@@ -356,14 +364,6 @@ class FullNameParser {
       # First letter consonant, second letter vowel or "y" (uppercase first)
       if (!in_array(strtolower($word{0}), $this->dict['vowels']) && (in_array(strtolower($word{1}), $this->dict['vowels']) || strtolower($word{1}) == 'y')) {
         $word = ucfirst(strtolower($word));
-      }
-      # Both letters vowels (uppercase both)
-      if (in_array(strtolower($word{0}), $this->dict['vowels']) && in_array(strtolower($word{1}), $this->dict['vowels'])) {
-        $word = strtoupper($word);
-      }
-      # Both letters consonants (uppercase both)
-      if (!in_array(strtolower($word{0}), $this->dict['vowels']) && (!in_array(strtolower($word{1}), $this->dict['vowels']) && strtolower($word{1}) != 'y')) {
-        $word = strtoupper($word);
       }
     }
 
