@@ -30,6 +30,7 @@ Check examples.php for the test suite and examples of how various name formats a
 **To-do**
 
 * Handle the "Lname, Fname" format
+* Support non-English names (handle unicode characters & better understand global naming rules)
 * Separate the parsing of the name from the normalization & capitalization & make those optional.
 * Add common name libraries to allow for things like gender detection
 
