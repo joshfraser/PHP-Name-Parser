@@ -322,7 +322,7 @@ class FullNameParser {
    * @return boolean
    */
   protected function is_camel_case($word) {
-    if (preg_match("/(?:[A-Z]|[a-z]+)+(?:[A-Z][a-z]+)+/", $word)) {
+    if (preg_match("/[A-Za-z]([A-Z]*[a-z][a-z]*[A-Z]|[a-z]*[A-Z][A-Z]*[a-z])[A-Za-z]*/", $word)) {
       return true;
     }
     return false;
@@ -331,21 +331,38 @@ class FullNameParser {
   # ucfirst words split by dashes or periods
   # ucfirst all upper/lower strings, but leave camelcase words alone
   public function fix_case($word) {
-      # uppercase words split by dashes, like "Kimura-Fay"
-      $word = $this->safe_ucfirst("-",$word);
-      # uppercase words split by periods, like "J.P."
-      $word = $this->safe_ucfirst(".",$word);
-      return $word;
+
+    # Fix case for words split by periods (J.P.)
+    if (strpos($word, '.') !== false) {
+      $word = $this->safe_ucfirst(".", $word);;
+    }
+
+    # Fix case for words split by hyphens (Kimura-Fay)
+    if (strpos($word, '-') !== false) {
+      $word = $this->safe_ucfirst("-", $word);
+    }
+
+    # Fix case for words which aren't initials, but are all upercase or lowercase
+    if ( (strlen($word) >= 3) && (ctype_upper($word) || ctype_lower($word)) ) {
+      $word = ucfirst(strtolower($word));
+    }
+
+    # Fix case for words which are 2 chars or less and all lowercase
+    if ((strlen($word) <= 2) && ctype_lower($word)) {
+      $word = ucfirst($word);
+    }
+
+    return $word;
   }
 
   # helper public function for fix_case
   public function safe_ucfirst($seperator, $word) {
-      # uppercase words split by the seperator (ex. dashes or periods)
-      $parts = explode($seperator,$word);
-      foreach ($parts as $word) {
-          $words[] = ($this->is_camel_case($word)) ? $word : ucfirst(strtolower($word));
-      }
-      return implode($seperator,$words);
+    # uppercase words split by the seperator (ex. dashes or periods)
+    $parts = explode($seperator, $word);
+    foreach ($parts as $word) {
+      $words[] = ($this->is_camel_case($word)) ? $word : ucfirst(strtolower($word));
+    }
+    return implode($seperator, $words);
   }
 
 }

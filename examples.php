@@ -247,16 +247,6 @@ $headers = array("salutation","fname","initials","lname","suffix","nickname");
   <body>
     <div class="wrapper">
       <table class="unit-tests">
-        <colgroup>
-          <col class="col1">
-          <col class="col2">
-          <col class="col3">
-          <col class="col4">
-          <col class="col5">
-          <col class="col6">
-          <col class="col7">
-          <col class="col8">
-        </colgroup>
         <thead>
           <tr>
             <th>Full Name</th>
@@ -274,6 +264,7 @@ $headers = array("salutation","fname","initials","lname","suffix","nickname");
             <td><?= (isset($split_name[$col])) ? $split_name[$col] : ''; ?></td>
 <?php endforeach; ?>
             <td><?= ($passed) ? 'PASS' : 'FAIL'; ?></td>
+          </tr>
 <?php endforeach; ?>
         </tbody>
       </table>
