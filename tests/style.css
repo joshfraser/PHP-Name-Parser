@@ -1,0 +1,21 @@
+table { border-collapse: collapse; border-spacing: 0; font-family: 'Open Sans', sans-serif; font-weight: 300 }
+thead { display: table-header-group }
+tr{ page-break-inside: avoid; }
+.wrapper { width:75%; margin:30px auto 24px; overflow: hidden; }
+.unit-tests { float: left; width: 100%; border-bottom: 1px solid #eee; }
+.unit-tests thead{ background:#666; border: 1px solid #555; }
+.unit-tests tr th{ padding: 0px 24px; height: 48px; line-height: 48px; font-weight: 900; color:#fff; border-right:1px solid #555  }
+.unit-tests tbody td { padding: 0px 24px; height: 48px; line-height: 48px; text-align: center; border:1px solid #eee; }
+.unit-tests tbody tr:first-child td { border-top:0 none; }
+.unit-tests tr td:first-child,
+.unit-tests tr th:first-child{ text-align: left; }
+.unit-tests tbody tr { border-top: 1px solid #eee; border-bottom:1px solid #eee; }
+.unit-tests tbody tr:first-child { border-top: 0 none; }
+.unit-tests tbody tr:nth-child(even) { background:#f8f8f8; }
+.unit-tests tbody .pass td:last-child { background:#ecffc1; border-color:rgba(0,0,0,0.04); border-right-color:rgba(0,0,0,0.1); color:#7ec43c; }
+.unit-tests tbody .fail td:last-child { background:#ffc1c1; border-color:rgba(0,0,0,0.03); border-right-color:rgba(0,0,0,0.1); color:#e53d3d; }
+.unit-tests tbody tr:hover { cursor:default; border-color:rgba(0,0,0,0.04); }
+.unit-tests tbody .pass:hover { background:#ecffc1; color:#7ec43c; }
+.unit-tests tbody .pass:hover td:not(:last-child) { border-color:rgba(0,0,0,0.04); }
+.unit-tests tbody .fail:hover { background:#ffc1c1; color:#e53d3d; }
+.unit-tests tbody .fail:hover td:not(:last-child) { border-color:rgba(0,0,0,0.04); }
