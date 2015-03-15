@@ -362,7 +362,7 @@ class FullNameParser {
         $word = strtoupper($word);
       }
       # Both letters consonants (uppercase both)
-      if (!in_array(strtolower($word{0}), $this->dict['vowels']) && !in_array(strtolower($word{1}), $this->dict['vowels'])) {
+      if (!in_array(strtolower($word{0}), $this->dict['vowels']) && (!in_array(strtolower($word{1}), $this->dict['vowels']) && strtolower($word{1}) != 'y')) {
         $word = strtoupper($word);
       }
     }
