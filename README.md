@@ -35,8 +35,9 @@ Check examples.php for the test suite and examples of how various name formats a
 * Add common name libraries to allow for things like gender detection
 
 **Same logic, different languages**
-[Name Parser in Java](https://github.com/gkhays/NameParser)
-[Name Parser in JavaScript](https://github.com/joshfraser/JavaScript-Name-Parser)
+
+* [Name Parser in Java](https://github.com/gkhays/NameParser)
+* [Name Parser in JavaScript](https://github.com/joshfraser/JavaScript-Name-Parser)
 
 **Credits & license:**
 
