@@ -44,7 +44,7 @@ class FullNameParser {
     'suffixes' => array(
       'line' => array('I','II','III','IV','V','1st','2nd','3rd','4th','5th','Senior','Junior','Jr','Sr'),
       'prof' => array('AO', 'B.A.', 'M.Sc', 'BCompt', 'PhD', 'Ph.D.','APR','RPh','PE','MD', 'M.D.', 'MA','DMD','CME', 'BSc', 'Bsc', 'BSc(hons)', 'Ph.D.', 'BEng', 'M.B.A.', 'MBA', 'FAICD', 'CM', 'OBC', 'M.B.', 'ChB', 'FRCP', 'FRSC',
-          'FREng', 'Esq', 'MEng', 'MSc', 'J.D.', 'JD', 'BGDipBus', 'Dip', 'Dipl.Phys','M.H.Sc.', 'MPA', 'B.Comm', 'B.Eng', 'B.Acc', 'FSA', 'PGDM', 'FCPA', 'RN', 'MSN',
+          'FREng', 'Esq', 'MEng', 'MSc', 'J.D.', 'JD', 'BGDipBus', 'Dip', 'Dipl.Phys','M.H.Sc.', 'MPA', 'B.Comm', 'B.Eng', 'B.Acc', 'FSA', 'PGDM', 'FCPA', 'RN', 'R.N.', 'MSN',
           'PCA', 'PCCRM','PCFP','PCGD','PCHR','PCM','PCPS','PCPM','PCSCM','PCSM','PCMM','PCTC','ACA', 'FCA','ACMA', 'FCMA','AAIA', 'FAIA','CCC','MIPA','FIPA','CIA','CFE','CISA','CFAP',
           'QC', 'Q.C.', 'M.Tech', 'CTA', 'C.I.M.A.', 'B.Ec',
           'CFIA','ICCP','CPS','CAP-OM','CAPTA','TNAOAP','AFA','AVA','ASA','CAIA','CBA','CVA','ICVS','CIIA','CMU','PFM','PRM','CFP','CWM','CCP','EA','CCMT','CGAP','CDFM','CFO','CGFM','CGAT','CGFO','CMFO','CPFO','CPFA',
