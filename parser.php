@@ -13,6 +13,11 @@
  * Author: Josh Frazer
  *
  * Contribution from Clive Verrall www.cliveverrall.com February 2016
+ * 
+ * // other contributions: 
+ * //   - eric willis [list of honorifics](http://notes.ericwillis.com/2009/11/common-name-prefixes-titles-and-honorifics/)
+ * //   - `TomThak` for raising issue #16 and providing [wikepedia resource](https://cs.wikipedia.org/wiki/Akademick%C3%BD_titul)
+ * //   - `atla5` for closing the issue.
 */
 class FullNameParser {
 
@@ -38,6 +43,60 @@ class FullNameParser {
       'Sr.' => array('sr', 'sister'),
       'Prof.' => array('prof', 'professor'),
       'Sir' => array('sir'),
+      'Hon.' => array('honorable'),
+      'Pres.' => array('president'),
+      'Gov' => array('governor','governer'),
+      'Ofc' => array('officer'),
+      'Msgr' => array('monsignor'),
+      'Sr.' => array('sister'),
+      'Br.' => array('brother'),
+      'Supt.' => array('superintendent'),
+      'Rep.' => array('representatitve'),
+      'Sen.' => array('senator'),
+      'Amb.' => array('ambassador'),
+      'Treas.' => array('treasurer'),
+      'Sec.' => array('secretary'),
+      'Pvt.' => array('private'),
+      'Cpl.' => array('corporal'),
+      'Sgt.' => array('sargent'),
+      'Adm.' => array('administrative','administrator','administrater'),
+      'Maj.' => array('major'),
+      'Capt.' => array('captain'),
+      'Cmdr.' => array('commander'),
+      'Lt.' => array('lieutenant'),
+      'Lt. Col.' => array('lieutenant colonel'),
+      'Col.' => array('colonel'),
+      'Gen.' => array('general'),
+      'Bc.' => array('bachelor', 'baccalaureus'),
+      'BcA.' => array('bachelor of arts', 'baccalaureus artis'),
+      'ICDr.' => array('doctor of canon law', 'juris cononici doctor'),
+      'Ing.' => array('engineer', 'ingenieur'),
+      'Ing. sheet.' => array('architect engineer', 'intrudes upon architectus'),
+      'JUDr.' => array('juris doctor utriusque', 'doctor rights'),
+      'MDDr.' => array('doctor of dental medicine', 'medicinae doctor dentium'),
+      'MgA.' => array('master of arts','magister artis'),
+      'Mgr.' => array('master'),
+      'MD.' => array('doctor of general medicine'),
+      'DVM.' => array('doctor of veterinary medine'),
+      'PaedDr.' => array('doctor of education'),
+      'PharmDr.' => array('doctor of pharmacy'),
+      'PhDr.' => array('doctor of philosophy'),
+      'PhMr.' => array('master of pharmacy'),
+      'RCDr.' => array('doctor of business studies'),
+      'RNDr.' => array('doctor of science'),
+      'DSc.' => array('doctor of science'),
+      'RSDr.' => array('doctor of socio-political sciences'),
+      'RTDr.' => array('doctor of technical sciences'),
+      'ThDr.' => array('doctor of theology'),
+      'Th.D.' => array('doctor of theology'),
+      'ThLic.' => array('licentiate of theology'),
+      'ThMgr.' => array('master of theology','master of divinity'),
+      'Acad.' => array('academian','academic'),
+      'ArtD.' => array('doctor of arts'),
+      'DiS.' => array('certified specialist'),
+      'As.' => array('assistant'),
+      'Odb. As.' => array('assistant professor'),
+      'Doc.' => array('associate professor'),
       ' ' => array('the')
     ),
     'compound' => array('da','de','del','della','der','di','du','la','pietro','st.','st','ter','van','vanden','vere','von'),
