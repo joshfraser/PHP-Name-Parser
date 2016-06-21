@@ -10,7 +10,7 @@
  *   - surname (last name)
  *   - suffix (II, PhD, Jr. etc)
  *
- * Author: Josh Frazer
+ * Author: Josh Fraser
  *
  * Contribution from Clive Verrall www.cliveverrall.com February 2016
  * 
