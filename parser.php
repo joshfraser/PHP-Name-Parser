@@ -108,7 +108,7 @@ class FullNameParser {
           'QC', 'Q.C.', 'M.Tech', 'CTA', 'C.I.M.A.', 'B.Ec',
           'CFIA','ICCP','CPS','CAP-OM','CAPTA','TNAOAP','AFA','AVA','ASA','CAIA','CBA','CVA','ICVS','CIIA','CMU','PFM','PRM','CFP','CWM','CCP','EA','CCMT','CGAP','CDFM','CFO','CGFM','CGAT','CGFO','CMFO','CPFO','CPFA',
           'BMD','BIET','P.Eng','PE', 'MBBS', 'MB', 'BCh', 'BAO', 'BMBS', 'MBBChir', 'MBChBa','MPhil','LL.D', 'LLD', 'D.Lit','DEA', 'DESS', 'DClinPsy', 'DSc', 'MRes', 'M.Res', 'Psy.D', 'Pharm.D',
-          'BA(Admin)', 'BAcc','BACom','BAdmin','BAE','BAEcon','BA(Ed)','BA(FS)','BAgr','BAH','BAI','BAI(Elect)','BAI(Mech)','BALaw','BAO','BAppSc','BArch','BArchSc','BARelSt','BASc','BASoc', 'D.D.S.',
+          'BA(Admin)', 'BAcc','BACom','BAdmin','BAE','BAEcon','BA(Ed)','BA(FS)','BAgr','BAH','BAI','BAI(Elect)','BAI(Mech)','BALaw','BAO','BAppSc','BArch','BArchSc','BARelSt','BASc','BASoc', 'DDS', 'D.D.S.',
           'BASS','BATheol','BBA','BBLS', 'BBS','BBus','BChem','BCJ','BCL','BCLD(SocSc)','BClinSci','BCom','BCombSt','BCommEdCommDev','BComp','BComSc','BCoun','BD','BDes','BE','BEcon','BEcon&Fin', 'M.P.P.M.', 'MPPM',
           'BEconSci', 'BEd','BEng','BES','BEng(Tech)','BFA','BFin','BFLS','BFST','BH','BHealthSc','BHSc','BHy','BJur','BL','BLE','BLegSc','BLib','BLing','BLitt','BLittCelt','BLS','BMedSc','BMet',
           'BMid', 'BMin','BMS','BMSc','BMSc','BMS','BMus','BMusEd','BMusPerf','BN', 'BNS','BNurs','BOptom','BPA','BPharm', 'BPhil', 'TTC', 'DIP', 'Tchg', 'BEd', 'MEd','ACIB', 'FCIM', 'FCIS', 'FCS', 'Fcs',
