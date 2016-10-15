@@ -144,7 +144,7 @@ class FullNameParser {
     # Find all the professional suffixes possible
     $professional_suffix = $this->get_pro_suffix($full_name);
 
-    // The position of the first professional suffix denotes then end of the name and the start of the suffixes
+    // The position of the first professional suffix denotes the end of the name and the start of suffixes
     $first_suffix_index = strlen($full_name);
     foreach ($professional_suffix as $key => $psx) {
       $start = strpos($full_name, $psx);
@@ -200,7 +200,7 @@ class FullNameParser {
       $salutation = "";
       $suffix = "";
     }
-    
+
     // Re-pack the unfiltered name parts array and exclude empty words
     $name_arr = array();
     foreach ($unfiltered_name_parts as $key => $name_part) {
@@ -217,7 +217,7 @@ class FullNameParser {
       }
     }
     $unfiltered_name_parts = $name_arr;
-  
+
     # set the ending range after prefix/suffix trim
     $end = count($unfiltered_name_parts);
 
@@ -307,16 +307,14 @@ class FullNameParser {
    * @return mixed returns the suffix if exists, false otherwise
    */
   public function get_pro_suffix($name) {
-    
+
     $found_suffix_arr = array();
     foreach ($this->dict['suffixes']['prof'] as $suffix) {
-      if (preg_match("/,[\s]*$suffix\b/i", $name, $matches)) {
+      if (preg_match('/[,\s]+'.$suffix.'\b/i', $name, $matches)) {
         $found_suffix = trim($matches[0]);
         $found_suffix = rtrim($found_suffix,',');
         $found_suffix = ltrim($found_suffix,',');
         $found_suffix_arr[] = trim($found_suffix);
-      } else if( strpos($name, $suffix) !== FALSE ) {
-         $found_suffix_arr[] = $suffix;
       }
     }
     return $found_suffix_arr;
