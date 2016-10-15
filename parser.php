@@ -205,6 +205,7 @@ class FullNameParser {
     $name_arr = array();
     foreach ($unfiltered_name_parts as $key => $name_part) {
       $name_part = trim($name_part);
+      $name_part = rtrim($name_part,',');
       if(strlen($name_part) == '1') {
         // If any word left is of one character that is not alphabetic then it is not a real word, so remove it
         if( ! ctype_alpha($name_part)) {
