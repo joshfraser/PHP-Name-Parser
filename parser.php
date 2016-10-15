@@ -124,6 +124,18 @@ class FullNameParser {
 
 
   /**
+   * Parse Static entry point.
+   *
+   * @param string $name the full name you wish to parse
+   * @return array returns associative array of name parts
+   */
+  public static function parse($name) {
+    $parser = new self();
+    return $parser->parse_name($name);
+  }
+
+
+  /**
    * This is the primary method which calls all other methods
    *
    * @param string $name the full name you wish to parse
