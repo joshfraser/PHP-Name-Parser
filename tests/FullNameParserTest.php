@@ -17,6 +17,7 @@ class FullNameParserTest extends PHPUnit_Framework_TestCase
         $tests_no_match = [
             'OLD MACDONALD',
             'OLD PHDMACDONALDPHD',
+            'Prof. Ron Brown',
         ];
 
         foreach ($tests as $test => $expected_result) {
@@ -355,7 +356,7 @@ class FullNameParserTest extends PHPUnit_Framework_TestCase
                     "fname"      => "Smarty",
                     "initials"   => "",
                     "lname"      => "Pants",
-                    "suffix"     => "PhD"
+                    "suffix"     => "Phd"
                 )
             ),
             array(
@@ -456,6 +457,16 @@ class FullNameParserTest extends PHPUnit_Framework_TestCase
                     "initials"   => "P.",
                     "lname"      => "Bennington",
                     "suffix"     => "III"
+                )
+            ),
+            array(
+                "Prof. Ron Brown MD",
+                array(
+                    "salutation" => "Prof.",
+                    "fname"      => "Ron",
+                    "initials"   => "",
+                    "lname"      => "Brown",
+                    "suffix"     => "MD"
                 )
             ),
         );

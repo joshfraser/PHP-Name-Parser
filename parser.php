@@ -185,21 +185,21 @@ class FullNameParser {
       # Get rid of consecutive spaces left by the removal
       $full_name = str_replace('  ', ' ', $full_name);
     }
-
+    
     # Grab a list of words from the remainder of the full name
     $unfiltered_name_parts = $this->break_words($full_name);
 
     # Is first word a title or multiple titles consecutively?
     if( count($unfiltered_name_parts)) {
       // only start looking if there are any words left in the name to process
-      while ($s = $this->is_salutation($unfiltered_name_parts[0])) {
+      while (count($unfiltered_name_parts) > 0 && $s = $this->is_salutation($unfiltered_name_parts[0])) {
         $salutation .= "$s ";
         array_shift($unfiltered_name_parts);
       }
       $salutation = trim($salutation);
-        // Find if there is a line suffix, if so then move it out
+      // Find if there is a line suffix, if so then move it out
       # Is last word a suffix or multiple suffixes consecutively?
-      while ($s = $this->is_line_suffix($unfiltered_name_parts[count($unfiltered_name_parts)-1], $full_name)) {
+      while (count($unfiltered_name_parts) > 0 && $s = $this->is_line_suffix($unfiltered_name_parts[count($unfiltered_name_parts)-1], $full_name)) {
         if( $suffix != "") {
           $suffix = $s.", ".$suffix;
         } else {
@@ -322,7 +322,7 @@ class FullNameParser {
 
     $found_suffix_arr = array();
     foreach ($this->dict['suffixes']['prof'] as $suffix) {
-      if (preg_match('/[,\s]+'.$suffix.'\b/i', $name, $matches)) {
+      if (preg_match('/[,\s]+'.preg_quote($suffix).'\b/i', $name, $matches)) {
         $found_suffix = trim($matches[0]);
         $found_suffix = rtrim($found_suffix,',');
         $found_suffix = ltrim($found_suffix,',');
@@ -502,7 +502,7 @@ class FullNameParser {
       }
     }
 
-    # Fix case for words which aren't initials, but are all upercase or lowercase
+    # Fix case for words which aren't initials, but are all uppercase or lowercase
     if ( (strlen($word) >= 3) && (ctype_upper($word) || ctype_lower($word)) ) {
       $word = ucfirst(strtolower($word));
     }
