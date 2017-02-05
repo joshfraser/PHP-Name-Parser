@@ -494,17 +494,17 @@ class FullNameParser {
       }
       # First letter is vowel, second letter consonant (uppercase first)
       if (in_array(mb_strtolower($word{0}), $this->dict['vowels']) && !in_array(mb_strtolower($word{1}), $this->dict['vowels'])) {
-        $word = ucfirst(mb_strtolower($word));
+        $word = $this->mb_ucfirst(mb_strtolower($word));
       }
       # First letter consonant, second letter vowel or "y" (uppercase first)
       if (!in_array(mb_strtolower($word{0}), $this->dict['vowels']) && (in_array(mb_strtolower($word{1}), $this->dict['vowels']) || mb_strtolower($word{1}) == 'y')) {
-        $word = ucfirst(mb_strtolower($word));
+        $word = $this->mb_ucfirst(mb_strtolower($word));
       }
     }
 
     # Fix case for words which aren't initials, but are all uppercase or lowercase
     if ( (mb_strlen($word) >= 3) && ($this->mb_ctype_upper($word) || $this->mb_ctype_lower($word)) ) {
-      $word = ucfirst(mb_strtolower($word));
+      $word = $this->mb_ucfirst(mb_strtolower($word));
     }
 
     return $word;
@@ -515,7 +515,7 @@ class FullNameParser {
     # uppercase words split by the seperator (ex. dashes or periods)
     $parts = explode($seperator, $word);
     foreach ($parts as $word) {
-      $words[] = ($this->is_camel_case($word)) ? $word : ucfirst(mb_strtolower($word));
+      $words[] = ($this->is_camel_case($word)) ? $word : $this->mb_ucfirst(mb_strtolower($word));
     }
     return implode($seperator, $words);
   }
@@ -523,28 +523,37 @@ class FullNameParser {
     # helper public function for multibytes ctype_alpha
     public function mb_ctype_alpha($text)
     {
-        return (bool)preg_match('/^\p{L}*$/', $text);
+      return (bool)preg_match('/^\p{L}*$/', $text);
     }
 
     # helper public function for multibytes ctype_lower
     public function mb_ctype_lower($text)
     {
-        return (bool)preg_match('/^\p{Ll}*$/', $text);
+      return (bool)preg_match('/^\p{Ll}*$/', $text);
     }
 
     # helper public function for multibytes ctype_upper
     public function mb_ctype_upper($text)
     {
-        return (bool)preg_match('/^\p{Lu}*$/', $text);
+      return (bool)preg_match('/^\p{Lu}*$/', $text);
     }
 
     # helper public function for multibytes str_word_count
     public function mb_str_word_count($text)
     {
-        if (empty($text)) {
-            return 0;
-        } else {
-            return preg_match('/s+/', $text) + 1;
-        }
+      if (empty($text)) {
+        return 0;
+      } else {
+        return preg_match('/s+/', $text) + 1;
+      }
+    }
+
+    # helper public function for multibytes ucfirst
+    public function mb_ucfirst($string)
+    {
+      $strlen = mb_strlen($string);
+      $firstChar = mb_substr($string, 0, 1);
+      $then = mb_substr($string, 1, $strlen - 1);
+      return mb_strtoupper($firstChar) . $then;
     }
 }
