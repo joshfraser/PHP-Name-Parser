@@ -42,6 +42,6 @@ Check examples.php for the test suite and examples of how various name formats a
 **Credits & license:**
 
 * Read more about the inspiration for this [PHP Name Parser](http://www.onlineaspect.com/2009/08/17/splitting-names/) library by [Josh Fraser](http://joshfraser.com)
-* Special thanks to [Josh Jones](https://github.com/UberNerdBoy), [Timothy Wood](https://github.com/codearachnid), [Michael Waskosky](https://github.com/waskosky), [Eric Celeste](https://github.com/efc) and [Josh Houghtelin](https://github.com/jhoughtelin) for their contributions.  Pull requests are always welcome as long as you don't break the test suite.
+* Special thanks to [Josh Jones](https://github.com/UberNerdBoy), [Timothy Wood](https://github.com/codearachnid), [Michael Waskosky](https://github.com/waskosky), [Eric Celeste](https://github.com/efc), [Josh Houghtelin](https://github.com/jhoughtelin) and [monitaure](https://www.github.com/monitaure) for their contributions.  Pull requests are always welcome as long as you don't break the test suite.
 * Released under Apache 2.0 license
 
