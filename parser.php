@@ -8,6 +8,8 @@
  *   - given/first name
  *   - middle name/initial(s)
  *   - surname (last name)
+ *   - surname base (last name without compounds)
+ *   - surname compounds (only the compounds)
  *   - suffix (II, PhD, Jr. etc)
  *
  * Author: Josh Fraser
@@ -99,7 +101,7 @@ class FullNameParser {
       'Doc.' => array('associate professor'),
       ' ' => array('the')
     ),
-    'compound' => array('da','de','del','della','der','di','du','la','pietro','st.','st','ter','van','vanden','vere','von'),
+    'compound' => array('da','de','del','della', 'dem', 'den', 'der','di','du', 'het', 'la', 'onder', 'op', 'pietro','st.','st','\'t', 'ten', 'ter','van','vanden','vere','von'),
     'suffixes' => array(
       'line' => array('I','II','III','IV','V','1st','2nd','3rd','4th','5th','Senior','Junior','Jr','Sr'),
       'prof' => array('AO', 'B.A.', 'M.Sc', 'BCompt', 'PhD', 'Ph.D.','APR','RPh','PE','MD', 'M.D.', 'MA','DMD','CME', 'BSc', 'Bsc', 'BSc(hons)', 'Ph.D.', 'BEng', 'M.B.A.', 'MBA', 'FAICD', 'CM', 'OBC', 'M.B.', 'ChB', 'FRCP', 'FRSC',
@@ -151,7 +153,7 @@ class FullNameParser {
     // $full_name = str_replace("(hons)", '', $full_name );
 
     # Setup default vars
-    extract(array('salutation' => '', 'fname' => '', 'initials' => '', 'lname' => '', 'suffix' => ''));
+    extract(array('salutation' => '', 'fname' => '', 'initials' => '', 'lname' => '', 'lname_base' => '', 'lname_compound' => '', 'suffix' => ''));
 
     # Find all the professional suffixes possible
     $professional_suffix = $this->get_pro_suffix($full_name);
@@ -269,8 +271,13 @@ class FullNameParser {
     if( count($unfiltered_name_parts)) {
       # check that we have more than 1 word in our string
       if ($end-0 > 1) {
-        # concat the last name
+        # concat the last name and split last name in base and compound
         for ($i; $i < $end; $i++) {
+          if ($this->is_compound($unfiltered_name_parts[$i])) {
+            $lname_compound .= " ".$unfiltered_name_parts[$i];
+          } else {
+            $lname_base .= " ".$this->fix_case($unfiltered_name_parts[$i]);
+          }
           $lname .= " ".$this->fix_case($unfiltered_name_parts[$i]);
         }
       }
@@ -287,6 +294,8 @@ class FullNameParser {
     $name['fname'] = trim($fname);
     $name['initials'] = trim($initials);
     $name['lname'] = trim($lname);
+    $name['lname_base'] = trim($lname_base);
+    $name['lname_compound'] = trim($lname_compound);
     $name['suffix'] = $suffix;
     return $name;
   }
