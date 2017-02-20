@@ -273,7 +273,7 @@ class FullNameParser {
       if ($end-0 > 1) {
         # concat the last name and split last name in base and compound
         for ($i; $i < $end; $i++) {
-          if ($this->is_compound($unfiltered_name_parts[$i]) {
+          if ($this->is_compound($unfiltered_name_parts[$i])) {
             $lname_compound .= " ".$unfiltered_name_parts[$i];
           } else {
             $lname_base .= " ".$this->fix_case($unfiltered_name_parts[$i]);
