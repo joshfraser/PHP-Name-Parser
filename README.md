@@ -38,6 +38,7 @@ Check examples.php for the test suite and examples of how various name formats a
 
 * [Name Parser in Java](https://github.com/gkhays/NameParser)
 * [Name Parser in JavaScript](https://github.com/joshfraser/JavaScript-Name-Parser)
+* [Name Parser in CSharp](https://github.com/ianlee74/CSharp-Name-Parser)
 
 **Credits & license:**
 
