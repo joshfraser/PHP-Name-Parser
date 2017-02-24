@@ -27,11 +27,11 @@ We start by splitting the full name into separate words. We then do a dictionary
 
 Check examples.php for the test suite and examples of how various name formats are parsed.
 
-**To-do**
+**Possible improvements**
 
 * Handle the "Lname, Fname" format
-* Support non-English names (handle unicode characters & better understand global naming rules)
-* Separate the parsing of the name from the normalization & capitalization & make those optional.
+* Separate the parsing of the name from the normalization & capitalization & make those optional
+* Seperate the dictionaries from the code to make it easier to do localization 
 * Add common name libraries to allow for things like gender detection
 
 **Same logic, different languages**
