@@ -442,7 +442,7 @@ class FullNameParser {
    * @return boolean
    */
   protected function is_compound($word) {
-    return array_search(mb_strtolower($word), $this->dict['compound']);
+    return in_array(mb_strtolower($word), $this->dict['compound']);
   }
 
 
