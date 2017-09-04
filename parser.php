@@ -50,7 +50,6 @@ class FullNameParser {
       'Gov' => array('governor','governer'),
       'Ofc' => array('officer'),
       'Msgr' => array('monsignor'),
-      'Sr.' => array('sister'),
       'Br.' => array('brother'),
       'Supt.' => array('superintendent'),
       'Rep.' => array('representatitve'),
