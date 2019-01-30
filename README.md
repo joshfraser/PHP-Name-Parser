@@ -13,7 +13,7 @@ PHP library to split names into their respective components.  Besides detecting 
 **Results:**
 
     Array (
-    	[nickname] =>
+        [nickname] =>
         [salutation] => Mr.
         [fname] => Anthony
         [initials] => R
