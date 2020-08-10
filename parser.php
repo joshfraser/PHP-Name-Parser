@@ -181,7 +181,7 @@ class FullNameParser {
     $has_nick = $this->get_nickname($full_name);
     if ($has_nick) {
       # Remove wrapper chars from around nickname
-      $name['nickname'] = mb_substr($has_nick, 1, (mb_strlen($has_nick) - 2));
+      $nickname = mb_substr($has_nick, 1, (mb_strlen($has_nick) - 2));
       # Remove the nickname from the full name
       $full_name = str_replace($has_nick, '', $full_name);
       # Get rid of consecutive spaces left by the removal
@@ -297,6 +297,7 @@ class FullNameParser {
     $name['lname_base'] = trim($lname_base);
     $name['lname_compound'] = trim($lname_compound);
     $name['suffix'] = $suffix;
+    $name['nickname'] = isset($nickname) ? trim($nickname) : '';
     return $name;
   }
 
