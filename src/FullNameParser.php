@@ -557,7 +557,7 @@ class FullNameParser {
       $matchesCount = preg_match_all('/\s+/', $text);
 
       if (!$matchesCount) {
-        return 0;
+        return 1;
       }
       
       return $matchesCount + 1;
