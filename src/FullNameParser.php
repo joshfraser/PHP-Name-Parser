@@ -552,9 +552,15 @@ class FullNameParser {
     {
       if (empty($text)) {
         return 0;
-      } else {
-        return preg_match('/s+/', $text) + 1;
       }
+
+      $matchesCount = preg_match_all('/\s+/', $text);
+
+      if (!$matchesCount) {
+        return 1;
+      }
+      
+      return $matchesCount + 1;
     }
 
     # helper public function for multibytes ucfirst
