@@ -243,6 +243,11 @@ class FullNameParser {
       if ($this->is_compound($word) && $i != 0) {
         break;
       }
+      # move on to parsing the last name if we find an indicator of a double-barrelled (hyphenated) AND compound last name (Von, Van, etc)
+      # we use $i != 0 to allow for cases where an indicator is actually a hyphenated first name (like "Betty-May")
+      if(str_contains($word, '-') && $i != 0) {
+        break;
+      }
       # is it a middle initial or part of their first name?
       # if we start off with an initial, we'll call it the first name
       if ($this->is_initial($word)) {
